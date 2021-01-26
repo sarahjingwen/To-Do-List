@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment} from 'react'
 import axios from 'axios'
 import Popup from 'reactjs-popup'
 import Task from './Task'
+import DeleteBtn from '../DeleteTasks/DeleteBtn'
+import UpdateModal from '../UpdateTasks/UpdateModal'
 import styled from 'styled-components'
 
 const BlandBtn = styled.a`
@@ -34,8 +36,8 @@ const StyledTooltip = styled(Popup)`
 }
 `
 
-const List = () => {
-	const [tasks, setTasks] = useState([])
+const List = ({tasks}) => {
+	/*const [tasks, setTasks] = useState([])
 	const [checked, setChecked] = useState(false)
 
 	useEffect(()=>{
@@ -50,7 +52,7 @@ const List = () => {
 
 	const handleCheckboxChange = (event) => {
 		setChecked(true)
-	}
+	}*/
 
 	const bullets = tasks.map( item => {
 		return (
@@ -66,6 +68,8 @@ const List = () => {
 	    				<Task task={item}/>
 	  				</StyledTooltip>
 				</label>
+				<DeleteBtn id={item.attributes.id}/>
+				<UpdateModal task={item}/>
 				<br></br>
 			</Fragment>
 			)

@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import List from './ShowTasks/List'
-import CreateModal from './CreateTasks/CreateModal.js'
+import CreateModal from './CreateTasks/CreateModal'
+import Autocomplete from './SearchTasks/Autocomplete'
 
 const Wrapper = styled.div`
   background: #fff;
@@ -64,17 +65,25 @@ const VertLine = styled.div `
   	height: 100%;
 `
 
-class Todolist extends Component{
-	constructor (props) {
-		super(props);
-	}
+const Todolist = (props) => {
+	const [tasks, setTasks] = useState([])
 
-	handleLogoutApi = () => {
+  useEffect(()=>{
+    axios.get('/tasks',{withCredentials: true})
+    .then(response => {
+      setTasks(response.data.data)
+    })
+    .catch(response => {
+      console.log(response)
+    })
+  }, [tasks.length])
+
+	const handleLogoutApi = () => {
 		axios.delete('/logout', {withCredentials: true})
 		.then(response => {
 			if (!response.data.logged_in) {
-        		this.props.handleLogout()
-        		this.redirect()
+        		props.handleLogout()
+        		redirect()
       		} else {
         		console.log('logout error', error)
       		}
@@ -82,11 +91,10 @@ class Todolist extends Component{
 		.catch(error => console.log('api error:', error))
 	}
 
-	redirect = () => {
-    	this.props.history.push('/')
+	const redirect = () => {
+    	props.history.push('/')
   	}
 
-	render(){
 		return(
 			<Fragment>
 				<Wrapper>
@@ -94,15 +102,18 @@ class Todolist extends Component{
 						<Header><h1>To-Dos</h1></Header>
 						<NavBar>
 						<CreateModal/>
-						<StyledBtn onClick={this.handleLogoutApi}>Logout</StyledBtn>
+						<StyledBtn onClick={handleLogoutApi}>Logout</StyledBtn>
 						</NavBar>
 						<VertLine></VertLine>
-						<List/>
+						<Autocomplete
+        options={tasks}
+      />
+						<List tasks={tasks}/>
 					</Box>
 				</Wrapper>
 			</Fragment>
 			)
-	}
+	
 }
 
 export default Todolist
