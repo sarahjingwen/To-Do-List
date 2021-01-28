@@ -8,6 +8,7 @@ const Wrapper = styled.div`
 	width:100%;
 	height:100%;
 	background: #fff;
+	background-image: repeating-linear-gradient(white 0px, white 24px, #00808070 26px);
 	padding-top:100px;
 `
 

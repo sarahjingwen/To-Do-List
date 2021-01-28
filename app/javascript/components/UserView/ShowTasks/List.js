@@ -9,11 +9,11 @@ import styled from 'styled-components'
 const BlandBtn = styled.a`
   color:#000;
   background: #fff;
-  font-size:18px;
+  font-size:30px;
   cursor: pointer;
   border: 1px solid #fff;
   font-family: "Courier New", "Arial";
-  font-weight:500;
+  font-weight:700;
 `
 
 const StyledTooltip = styled(Popup)`
@@ -36,27 +36,27 @@ const StyledTooltip = styled(Popup)`
 }
 `
 
-const List = ({tasks}) => {
-	/*const [tasks, setTasks] = useState([])
-	const [checked, setChecked] = useState(false)
+const Bullet = styled.div`
+	margin: 20px;
+	height:50px;
+`
 
-	useEffect(()=>{
-		axios.get('/tasks',{withCredentials: true})
-		.then(response => {
-			setTasks(response.data.data)
-		})
-		.catch(response => {
-			console.log(response)
-		})
-	}, [tasks.length])
+const Btn = styled.span`
+	float:right;
+	position: relative;
+	top: -20px;
 
-	const handleCheckboxChange = (event) => {
-		setChecked(true)
-	}*/
+`
+
+const List = (props) => {
+	const tasks = props.tasks
+	const showUpdate = props.showUpdate
+	const showDelete = props.showDelete
 
 	const bullets = tasks.map( item => {
 		return (
 			<Fragment>
+				<Bullet>
 				<input type="checkbox" />
 				<label for={item.attributes.id}>
 					<StyledTooltip
@@ -68,9 +68,12 @@ const List = ({tasks}) => {
 	    				<Task task={item}/>
 	  				</StyledTooltip>
 				</label>
-				<DeleteBtn id={item.attributes.id}/>
-				<UpdateModal task={item}/>
+				<Btn>
+				{ showDelete ? <DeleteBtn id={item.attributes.id}/> : null }
+				{ showUpdate ? <UpdateModal task={item}/> : null}
+				</Btn>
 				<br></br>
+				</Bullet>
 			</Fragment>
 			)
 	})

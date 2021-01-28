@@ -6,7 +6,7 @@ import CreateForm from './CreateForm'
 
 const StyledPopup = styled(Popup)`
   &-overlay {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
   }
 
   &-content {
@@ -33,7 +33,7 @@ const StyledBtn = styled.button`
   cursor: pointer;
   transition: ease-in-out 0.1s;
   border: 1px solid #fff;
-  width: 100px;
+  width: 75%;
   margin-top:20px;
   font-family: "Courier New", "Arial";
   font-weight:500;

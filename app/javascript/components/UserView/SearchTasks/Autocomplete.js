@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './Autocomplete.css'
 import UpdateForm from '../UpdateTasks/UpdateForm'
+import SearchView from './SearchView'
 
 export class Autocomplete extends Component {
   static propTypes = {
@@ -13,7 +14,7 @@ export class Autocomplete extends Component {
     filteredOptions: [], 
     showOptions: false,
     userInput: '',
-    showContent: {}
+    showContent: false,
   };
 
   onChange = (e) => {
@@ -49,7 +50,7 @@ export class Autocomplete extends Component {
       filteredOptions,
       showOptions: true,
       userInput: e.currentTarget.value,
-      showContent: {}
+      showContent: false
     });
   };
 
@@ -59,8 +60,10 @@ export class Autocomplete extends Component {
       filteredOptions: [],
       showOptions: false,
       userInput: e.currentTarget.innerText,
+      showContent: true
     });
   };
+
   onKeyDown = (e) => {
     const { activeOption, filteredOptions } = this.state;
 
@@ -68,7 +71,8 @@ export class Autocomplete extends Component {
       this.setState({
         activeOption: 0,
         showOptions: false,
-        userInput: filteredOptions[activeOption]
+        userInput: filteredOptions[activeOption],
+        showContent: true
       });
     } else if (e.keyCode === 38) {
       if (activeOption === 0) {
@@ -122,8 +126,11 @@ export class Autocomplete extends Component {
 
     let showTask;
     if (showContent){
-      <UpdateForm task={showContent}/>
+      let task = this.props.options.filter(item => item.attributes.title === userInput)[0]
+      console.log(task)
+      showTask=(<SearchView task={task}/>)
     }
+
     return (
       <React.Fragment>
         <div className="search">

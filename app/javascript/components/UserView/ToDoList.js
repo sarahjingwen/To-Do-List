@@ -12,19 +12,33 @@ const Wrapper = styled.div`
   top: 0;
   width:100%;
   height:100%;
+  padding-bottom: 100px;
 `
 
 const Box = styled.div`
-  width: 50%;
+  width: 70%;
   margin: auto;
-  text-align:center;
-  padding-top: 30px;
-  padding-bottom: 30px
+  text-align:left;
+
+  padding: 10px 10px 40px 10px;
+    box-shadow: 0px 0px 0px 3px #473228,
+      -10px 10px #ef5f17,
+      -10px 10px 0px 3px #473228,
+      -20px 20px #db417a,
+      -20px 20px 0px 3px #473228,
+      -30px 30px #ffcf49,
+      -30px 30px 0px 3px #473228;
+`
+
+const Container = styled.div`
+  width: 80%;
+  padding: 5% 0 5% 20%;
 `
 
 const Header = styled.div`
   font-family: "Courier New", "Arial";
-  font-size: 25px;
+  font-size: 40px;
+  text-align:center;
 `
 
 const StyledBtn = styled.button`
@@ -36,7 +50,7 @@ const StyledBtn = styled.button`
   cursor: pointer;
   transition: ease-in-out 0.1s;
   border: 1px solid #fff;
-  width: 100px;
+  width: 75%;
   margin-top:20px;
   font-family: "Courier New", "Arial";
   font-weight:500;
@@ -50,7 +64,7 @@ const StyledBtn = styled.button`
 
 const NavBar = styled.div`
 	height: 100%;
-    width: 160px; 
+    width: 15%; 
   	position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   	z-index: 1; /* Stay on top */
   	top: 0; /* Stay at the top */
@@ -58,15 +72,15 @@ const NavBar = styled.div`
   	overflow-x: hidden; /* Disable horizontal scroll */
   	padding-top: 20px;
   	border-right: 3px solid #d77070;
+    text-align:center;
 `
 
-const VertLine = styled.div `
-	border-left: 6px solid green;
-  	height: 100%;
-`
+
 
 const Todolist = (props) => {
 	const [tasks, setTasks] = useState([])
+  const [showUpdate, setShowUpdate] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
 
   useEffect(()=>{
     axios.get('/tasks',{withCredentials: true})
@@ -95,21 +109,38 @@ const Todolist = (props) => {
     	props.history.push('/')
   	}
 
+  const handleUpdate = () => {
+    setShowUpdate(!showUpdate)
+    console.log(showUpdate)
+  }
+
+  const handleDelete = () => {
+    setShowDelete(!showDelete)
+    console.log(showDelete)
+  }
+
 		return(
 			<Fragment>
 				<Wrapper>
+          <Container>
 					<Box>
 						<Header><h1>To-Dos</h1></Header>
-						<NavBar>
-						<CreateModal/>
-						<StyledBtn onClick={handleLogoutApi}>Logout</StyledBtn>
-						</NavBar>
-						<VertLine></VertLine>
 						<Autocomplete
-        options={tasks}
-      />
-						<List tasks={tasks}/>
+              options={tasks}
+            />
+						<List 
+            tasks={tasks} 
+            showDelete={showDelete}
+            showUpdate={showUpdate}/>
 					</Box>
+          </Container>
+
+          <NavBar>
+            <CreateModal/>
+            <StyledBtn onClick={handleDelete}>Delete</StyledBtn>
+            <StyledBtn onClick={handleUpdate}>Update</StyledBtn>
+            <StyledBtn onClick={handleLogoutApi}>Logout</StyledBtn>
+            </NavBar>
 				</Wrapper>
 			</Fragment>
 			)
