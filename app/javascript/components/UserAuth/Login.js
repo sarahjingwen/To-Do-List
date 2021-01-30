@@ -108,6 +108,7 @@ class Login extends Component {
         this.setState({
           errors: response.data.errors
         })
+        console.log('login error:', this.errors)
       }
     })
     .catch(error => console.log('api errors:', error))
