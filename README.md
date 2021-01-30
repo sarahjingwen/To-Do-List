@@ -4,6 +4,10 @@ Name: Tan Jing Wen, Sarah
 
 Matric No.: A0222470R 
 
+## Description
+
+This is just another to-do list with CRUDS function, search and login.
+
 ## Screenshots of Application
 
 ![Image of Home](/Final-Submission/Screenshots/Home.png)
@@ -12,3 +16,9 @@ Matric No.: A0222470R
 ![Image of Create Function](/Final-Submission/Screenshots/Create.png)
 ![Image of Delete Function](/Final-Submission/Screenshots/Delete.png)
 
+## How to download
+
+Clone the repository.
+Run rails db:migrate.
+Run rails s.
+View on localhost:3000.
