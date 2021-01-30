@@ -19,6 +19,11 @@ This is just another to-do list with CRUDS function, search and login.
 ## How to download
 
 Clone the repository.
+
+Change directory to where you cloned in.
+
 Run rails db:migrate.
+
 Run rails s.
+
 View on localhost:3000.
