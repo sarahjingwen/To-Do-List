@@ -18,17 +18,11 @@ const BlandBtn = styled.a`
 
 const StyledTooltip = styled(Popup)`
 	&-content {
-    background: #fff;
-    background-image: repeating-linear-gradient(white 0px, white 24px, #00808070 26px);
+    background: #ffcf49;
     width: 500px;
     padding: 10px;
-    box-shadow: 0px 0px 0px 3px #473228,
-      5px -5px #ef5f17,
-      5px -5px 0px 3px #473228,
-      10px -10px #db417a,
-      10px -10px 0px 3px #473228,
-      15px -15px #ffcf49,
-      15px -15px 0px 3px #473228;
+   	border: 2px solid #473228;
+   	border-radius: 4px;
   }
 
   &-arrow {
